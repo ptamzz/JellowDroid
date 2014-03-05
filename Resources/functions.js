@@ -7,7 +7,7 @@ function createButtons(data){
 	var detectedWidth = Titanium.Platform.displayCaps.platformWidth;
 	var detectedHeight = Titanium.Platform.displayCaps.platformHeight;
 
-	var gridWidth, column = 0, i = 0, numColumns = 0, numRows = 0, temp = 1, btnSize = 200, btnGap = 170;
+	var gridWidth, column = 0, i = 0, numColumns = 0, numRows = 0, temp = 1;//, //btnSize = 100, btnGap = 70;
 	
 	//Determing width of scrollview area
 	scrollViewWidth = detectedWidth - 440 - (btnGap*2);
@@ -88,7 +88,7 @@ function createButtons(data){
 //Create the Main Buttons
 function createMainButtons(data){
 	
-	var btnSize = 200;
+	//var btnSize = 100;
 	
 	/* Generate Main Buttons */
 	for (var i = 0; i < data.length; i++){
@@ -166,6 +166,11 @@ function soundPath(path){
 		audio.addEventListener('complete', function(e){
 			var action = Ti.Media.createSound({ url: path });
 			action.play();
+			
+			action.addEventListener('complete', function(e){
+				action = null;
+				audio = null;
+			});
 		});
 	}
 	
@@ -173,6 +178,7 @@ function soundPath(path){
 	mainButtonState = null;
 	
 	audio.play(); //Play Audio
+	
 }
 
 //Changed
@@ -197,7 +203,7 @@ function setButtonState(button, buttonNo, nextLevelButtons){
 	} else {
 		if(temp == 1){ temp = 2; }
 	}
-	
+
 	
 	if(inside){
 		actionButtonState = null;
@@ -820,8 +826,6 @@ function setMainBtnState(e, firstBtnState, secBtnState){
 		mainButtonState = secBtnState;
 		e.source.value = 1;
 		//e.source.backgroundColor = null;
-	} else {
-		//Some other click: :'(
 	}
 	
 	//Use to check whether the same button is pressed for a second time or some other button is pressed
@@ -899,7 +903,7 @@ function changeMainBtnState(e){
 }
 
 function getAudioFile(filePath){
-	var audio = Ti.Media.createSound({
+	audio = Ti.Media.createSound({
 		url: filePath
 	});
 	
@@ -950,7 +954,7 @@ function generateUI(e){
 	// open tab group
 	win.open();
 	
-	Ti.API.info("Pane: pWidth = " + detectedWidth + ", pHeight = " + detectedHeight);
+	//Ti.API.info("Pane: pWidth = " + detectedWidth + ", pHeight = " + detectedHeight);
 	
 }
 
